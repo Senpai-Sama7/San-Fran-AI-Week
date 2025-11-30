@@ -255,7 +255,20 @@ body {
   background-position: 30% center;
 }
 
-/* Typography */
+/* Noise Texture Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Swiss Typography Refinements */
 h1,
 h2,
 h3,
@@ -264,25 +277,28 @@ h5,
 h6 {
   font-family: var(--font-display);
   font-weight: 800;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  margin: 0 0 var(--space-sm) 0;
-  line-height: 1.1;
+  line-height: 0.9;
+  margin-bottom: var(--space-sm);
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 4.5rem;
 }
 h2 {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
 }
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
-p {
-  margin-bottom: var(--space-sm);
-  max-width: 60ch;
+p,
+li,
+span,
+div {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
@@ -912,6 +928,45 @@ textarea:focus {
   font-size: 2rem;
   cursor: pointer;
   line-height: 1;
+}
+
+/* Live Indicator */
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-red);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.blink {
+  animation: blinker 1.5s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+}
+
+@keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Utilities */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-header {
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* Utilities */

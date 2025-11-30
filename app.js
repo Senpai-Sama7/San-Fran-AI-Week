@@ -865,8 +865,101 @@ function showDayModal(date, dayNum) {
 function renderCourses() {
   renderPrereqTree();
   renderTimeAllocationChart();
+  renderSkillRadar(); // New Visualizer
   renderCourseCards();
   setupCourseFilters();
+}
+
+function renderSkillRadar() {
+  // Create canvas if it doesn't exist
+  let canvas = document.getElementById("skillRadarChart");
+  if (!canvas) {
+    const container = document.createElement("div");
+    container.className = "card";
+    container.style.gridColumn = "span 2";
+    container.innerHTML = `
+      <div class="card-header flex-between">
+        <h3>Skill Matrix</h3>
+        <div class="live-indicator"><span class="blink">●</span> LIVE</div>
+      </div>
+      <div style="height: 300px; position: relative;">
+        <canvas id="skillRadarChart"></canvas>
+      </div>
+    `;
+    // Insert after time allocation chart
+    const timeChart = document
+      .getElementById("timeAllocationChart")
+      .closest(".card");
+    timeChart.parentNode.insertBefore(container, timeChart.nextSibling);
+    canvas = document.getElementById("skillRadarChart");
+  }
+
+  const ctx = canvas.getContext("2d");
+
+  new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: [
+        "Python",
+        "Unity/C#",
+        "XR Dev",
+        "AI Agents",
+        "CV",
+        "System Design",
+      ],
+      datasets: [
+        {
+          label: "Current Proficiency",
+          data: [65, 59, 45, 30, 25, 40],
+          fill: true,
+          backgroundColor: "rgba(59, 130, 246, 0.2)",
+          borderColor: "#3B82F6",
+          pointBackgroundColor: "#3B82F6",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "#3B82F6",
+        },
+        {
+          label: "Target Goal",
+          data: [85, 80, 75, 70, 60, 80],
+          fill: true,
+          backgroundColor: "rgba(16, 185, 129, 0.1)",
+          borderColor: "#10B981",
+          pointBackgroundColor: "#10B981",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "#10B981",
+          borderDash: [5, 5],
+        },
+      ],
+    },
+    options: {
+      elements: {
+        line: { borderWidth: 3 },
+      },
+      scales: {
+        r: {
+          angleLines: { color: "rgba(0, 0, 0, 0.1)" },
+          grid: { color: "rgba(0, 0, 0, 0.05)" },
+          pointLabels: {
+            font: { family: "Space Mono", size: 12 },
+            color: "#1E293B",
+          },
+          ticks: { backdropColor: "transparent" },
+        },
+      },
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: { font: { family: "Space Mono" } },
+        },
+      },
+      animation: {
+        duration: 2000,
+        easing: "easeOutQuart",
+      },
+    },
+  });
 }
 
 function renderPrereqTree() {
