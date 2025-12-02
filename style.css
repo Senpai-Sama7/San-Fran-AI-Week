@@ -987,3 +987,66 @@ textarea:focus {
     transform: translateY(0);
   }
 }
+
+/* Interactive States */
+.course-card.completed,
+.project-card.completed,
+.event-card.attended {
+  border-color: var(--color-emerald-500) !important;
+  background: linear-gradient(to bottom right, #ffffff, #ecfdf5) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.course-card.completed::after,
+.project-card.completed::after,
+.event-card.attended::after {
+  content: "COMPLETED";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: var(--color-emerald-500);
+  border: 2px solid var(--color-emerald-500);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transform: rotate(15deg);
+  font-family: var(--font-mono);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.event-card.attended::after {
+  content: "ATTENDED";
+}
+
+.project-card.completed::after {
+  content: "SHIPPED";
+}
+
+.btn--primary {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border: 1px solid var(--color-text);
+}
+
+.btn--primary:hover {
+  background: #000;
+  color: #fff;
+}
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+}
+
+.btn--outline:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.btn--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.7rem;
+}

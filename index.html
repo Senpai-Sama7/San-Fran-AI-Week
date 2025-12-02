@@ -39,7 +39,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" id="mainNav">
       <div class="nav-container">
         <div class="nav-logo">AI+XR Sprint</div>
         <div class="nav-tabs">
@@ -93,224 +93,84 @@
         </div>
 
         <!-- KPI Cards -->
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-icon" style="background: var(--color-bg-4)">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-value" id="daysRemaining">0</div>
-              <div class="kpi-label">Days Remaining</div>
-            </div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-icon" style="background: var(--color-bg-1)">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-value">
-                <input
-                  type="number"
-                  id="hoursCompleted"
-                  value="0"
-                  min="0"
-                  max="500"
-                />
-              </div>
-              <div class="kpi-label">Hours Completed</div>
-            </div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-icon" style="background: var(--color-bg-3)">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
-                ></path>
-              </svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-value" id="projectsShipped">0/3</div>
-              <div class="kpi-label">Projects Shipped</div>
-              <div class="progress-bar">
-                <div
-                  class="progress-fill"
-                  id="projectsProgress"
-                  style="width: 0%"
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-icon" style="background: var(--color-bg-6)">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-value" id="eventsAttended">0/7</div>
-              <div class="kpi-label">Events Attended</div>
-            </div>
-          </div>
+        <div class="kpi-grid" id="kpiGrid">
+          <!-- KPIs rendered by JS -->
         </div>
 
         <!-- Timeline Visualization -->
-        <div class="card timeline-card">
-          <h2>Sprint Timeline</h2>
-          <div class="timeline-container" id="timelineContainer"></div>
+        <div class="card timeline-card" id="timeline">
+          <!-- Timeline rendered by JS -->
         </div>
 
         <!-- Current Phase & Today's Schedule -->
         <div class="two-col-grid">
-          <div class="card">
-            <h2>Current Phase</h2>
-            <div id="currentPhase"></div>
+          <div class="card" id="currentPhase">
+            <!-- Rendered by JS -->
           </div>
-          <div class="card">
-            <h2>Today's Schedule</h2>
-            <div id="todaySchedule"></div>
+          <div class="card" id="todaySchedule">
+            <!-- Rendered by JS -->
           </div>
         </div>
 
-        <!-- Skill Progression -->
-        <div class="card">
-          <h2>Skill Progression</h2>
-          <div class="skill-gauges" id="skillGauges"></div>
+        <!-- Charts -->
+        <div class="two-col-grid">
+          <div class="card">
+            <h3>Time Allocation</h3>
+            <canvas id="timeAllocationChart"></canvas>
+          </div>
+          <div class="card">
+            <h3>Skill Matrix</h3>
+            <canvas id="skillRadarChart"></canvas>
+          </div>
         </div>
       </div>
 
       <!-- Calendar Tab -->
       <div class="tab-content" id="calendar">
-        <div class="header">
-          <h1>Sprint Calendar</h1>
-          <p class="subtitle">November 28 - December 25, 2025</p>
-        </div>
-
-        <div class="card">
-          <div class="calendar-controls">
-            <button class="btn btn--secondary" id="prevMonth">
-              ← Previous
-            </button>
-            <h2 id="calendarMonth">November 2025</h2>
-            <button class="btn btn--secondary" id="nextMonth">Next →</button>
-          </div>
-          <div class="calendar-legend">
-            <div class="legend-item">
-              <span
-                class="legend-color"
-                style="background: var(--color-bg-1)"
-              ></span>
-              Foundation Sprint
-            </div>
-            <div class="legend-item">
-              <span
-                class="legend-color"
-                style="background: var(--color-bg-3)"
-              ></span>
-              Build Sprint + Events
-            </div>
-            <div class="legend-item">
-              <span
-                class="legend-color"
-                style="background: var(--color-bg-8)"
-              ></span>
-              Consolidation
-            </div>
-            <div class="legend-item">
-              📚 Course | 🛠️ Project | 🎮 Hackathon | 🌐 Event | 🏆 Milestone
-            </div>
-          </div>
-          <div class="calendar-grid" id="calendarGrid"></div>
-        </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
       </div>
 
       <!-- Courses Tab -->
       <div class="tab-content" id="courses">
         <div class="header">
-          <h1>Learning Courses</h1>
+          <h1>Curriculum</h1>
           <p class="subtitle">
-            9 courses spanning Python, C#, Unity, XR, CV, and AI
+            Master the full stack of Spatial Computing & AI
           </p>
         </div>
 
-        <!-- Prerequisite Tree -->
-        <div class="card">
-          <h2>Course Prerequisites</h2>
-          <div class="prereq-tree" id="prereqTree"></div>
+        <div class="event-filters" style="margin-bottom: var(--space-lg)">
+          <button class="filter-btn course-filter-btn active" data-filter="all">
+            All
+          </button>
+          <button class="filter-btn course-filter-btn" data-filter="Python/AI">
+            Python/AI
+          </button>
+          <button class="filter-btn course-filter-btn" data-filter="C#/Unity">
+            C#/Unity
+          </button>
+          <button class="filter-btn course-filter-btn" data-filter="XR">
+            XR
+          </button>
+          <button
+            class="filter-btn course-filter-btn"
+            data-filter="Computer Vision"
+          >
+            CV
+          </button>
+          <button
+            class="filter-btn course-filter-btn"
+            data-filter="Integration"
+          >
+            Integration
+          </button>
         </div>
 
-        <!-- Time Allocation Chart -->
-        <div class="card">
-          <h2>Time Allocation by Category</h2>
-          <div class="chart-container">
-            <canvas id="timeAllocationChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Course Cards -->
-        <div class="course-filters">
-          <button class="filter-btn active" data-filter="all">
-            All Courses
-          </button>
-          <button class="filter-btn" data-filter="Python/AI">Python/AI</button>
-          <button class="filter-btn" data-filter="C#/Unity">C#/Unity</button>
-          <button class="filter-btn" data-filter="XR">XR</button>
-          <button class="filter-btn" data-filter="Computer Vision">
-            Computer Vision
-          </button>
-        </div>
-        <div class="course-grid" id="courseGrid"></div>
+        <div id="coursesGrid" class="course-grid"></div>
       </div>
 
       <!-- Projects Tab -->
       <div class="tab-content" id="projects">
-        <div class="header">
-          <h1>Projects</h1>
-          <p class="subtitle">3 portfolio projects from beginner to advanced</p>
-        </div>
-
-        <!-- Project Comparison Chart -->
         <div class="card">
           <h2>Project Comparison</h2>
           <div class="chart-container">
@@ -360,6 +220,6 @@
       </div>
     </div>
 
-    <script src="app.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
