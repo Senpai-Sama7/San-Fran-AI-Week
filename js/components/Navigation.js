@@ -34,9 +34,10 @@ export class Navigation extends Component {
       const el = document.getElementById(section);
       if (el) {
         if (section === currentTab) {
+          el.classList.add("active");
           el.classList.remove("hidden");
-          // Trigger specific render if needed, or rely on individual components listening to state
         } else {
+          el.classList.remove("active");
           el.classList.add("hidden");
         }
       }
